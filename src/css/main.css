@@ -1,0 +1,13 @@
+body{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+canvas{
+    border: 1px solid;
+    width: 80%;
+    image-rendering: pixelated;
+}
