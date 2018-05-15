@@ -8,6 +8,6 @@ body{
 
 canvas{
     border: 1px solid;
-    width: 80%;
+    width: 70vmin;
     image-rendering: pixelated;
 }
