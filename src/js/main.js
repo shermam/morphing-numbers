@@ -4,7 +4,7 @@ import { diffID, sameID, getPixels, mapPixels, getIDFromMap } from "./utils.js";
 
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
-canvas.width = canvas.height = 1000;
+canvas.width = canvas.height = 100;
 const drawText = drawTextFactory(canvas.width, canvas.height);
 const animFrames = 30;
 
@@ -54,6 +54,8 @@ function getInterpolatedMap(mappedPixels, count, animFrames) {
         return mappedPixels.map(p => ({ x: p.toX, y: p.toY }));
     }
 
+    const ratio = (count / animFrames);
+
     return mappedPixels.map(p => {
 
         if (p.x === p.toX && p.y === p.toY) {
@@ -61,15 +63,15 @@ function getInterpolatedMap(mappedPixels, count, animFrames) {
         }
 
         if (p.x === p.toX) {
-            return { x: p.x, y: p.y + ((p.toY - p.y) * (count / animFrames)) };
+            return { x: p.x, y: p.y + ((p.toY - p.y) * ratio) };
         }
 
         if (p.y === p.toY) {
-            return { x: p.x + ((p.toX - p.x) * (count / animFrames)), y: p.y };
+            return { x: p.x + ((p.toX - p.x) * ratio), y: p.y };
         }
 
 
-        const distance = (count / animFrames) * p.distance;
+        const distance = ratio * p.distance;
         const dx = Math.sqrt((distance ** 2) / (1 + (p.r ** 2)));
         const dy = dx * p.r;
         const ret = { x: Math.round(p.x + dx), y: Math.round(p.y + dy) };
