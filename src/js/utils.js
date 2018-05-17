@@ -54,17 +54,17 @@ export function mapPixels(firstPixels, secondPixels, reverse) {
         }
 
         if (reverse) {
-            return { x: min.x, y: min.y, toX: p.x, toY: p.y, distance: minDistance }
+            return { x: min.x, y: min.y, toX: p.x, toY: p.y, distance: Math.sqrt(minDistance), r: (p.y - min.y) / (p.x - min.x) }
         }
 
-        return { x: p.x, y: p.y, toX: min.x, toY: min.y, distance: minDistance }
+        return { x: p.x, y: p.y, toX: min.x, toY: min.y, distance: Math.sqrt(minDistance), r: (min.y - p.y) / (min.x - p.x) }
     });
 }
 
 function getDistance(p1, p2) {
     //We are just using this distance to compare and find the minimum
     //so we maybe do not need to square root it here and save some performance
-    return Math.sqrt(
+    return (
         (Math.abs(p2.x - p1.x) ** 2) +
         (Math.abs(p2.y - p1.y) ** 2)
     );

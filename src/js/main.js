@@ -41,15 +41,40 @@ function animate(mappedPixels, animFrames) {
 
         drawID(getIDFromMap(interpolatedMap, canvas.width, canvas.height));
         count++;
-        if (count < animFrames) {
+        if (count <= animFrames) {
             requestAnimationFrame(loop);
         }
     })()
 }
 
 function getInterpolatedMap(mappedPixels, count, animFrames) {
+    if (count === 0) return mappedPixels;
+
+    if (count === animFrames) {
+        return mappedPixels.map(p => ({ x: p.toX, y: p.toY }));
+    }
+
     return mappedPixels.map(p => {
+
+        if (p.x === p.toX && p.y === p.toY) {
+            return { x: p.x, y: p.y };
+        }
+
+        if (p.x === p.toX) {
+            return { x: p.x, y: p.y + ((p.toY - p.y) * (count / animFrames)) };
+        }
+
+        if (p.y === p.toY) {
+            return { x: p.x + ((p.toX - p.x) * (count / animFrames)), y: p.y };
+        }
+
+
         const distance = (count / animFrames) * p.distance;
+        const dx = Math.sqrt((distance ** 2) / (1 + (p.r ** 2)));
+        const dy = dx * p.r;
+        const ret = { x: Math.round(p.x + dx), y: Math.round(p.y + dy) };
+
+        return ret;
     });
 }
 
