@@ -14,8 +14,9 @@ export function drawTextFactory(width, height) {
 
         bContext.beginPath();
         bContext.fillStyle = '#000000';
+        bContext.strokeStyle = '#000000';
         bContext.textAlign = "center";
-        bContext.fillText(
+        bContext.strokeText(
             num,
             buffer.width / 2,
             buffer.height / 2
@@ -33,7 +34,7 @@ function blackWhite(imageData) {
             imageData.data[i + 1] +
             imageData.data[i + 2]) / 3;
 
-        const color = avg < 127 ? 0 : 255;
+        const color = avg < 255 ? 0 : 255;
 
         imageData.data[i + 0] = imageData.data[i + 1] = imageData.data[i + 2] = color;
         imageData.data[i + 3] = 255;
