@@ -1,12 +1,13 @@
 //@ts-check
-import { drawTextFactory } from "./drawText.js";
+import { drawTextFactory, drawRectFactory } from "./drawText.js";
 import { diffID, sameID, getPixels, mapPixels, getIDFromMap } from "./utils.js";
 
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
-canvas.width = canvas.height = 100;
+canvas.width = canvas.height = 20;
 const drawText = drawTextFactory(canvas.width, canvas.height);
-const animFrames = 30;
+const drawRect = drawRectFactory(canvas.width, canvas.height);
+const animFrames = 10;
 
 
 const btnDraw = document.querySelector('#draw');
@@ -14,10 +15,10 @@ let num = 0;
 
 
 btnDraw.addEventListener('click', e => {
-    const firstID = drawText(num);
-    const secondID = drawText(++num);
-    //const diff = diffID(firstID, secondID);
-    //const same = sameID(firstID, secondID);
+    // const firstID = drawText(num);
+    // const secondID = drawText(++num);
+    const firstID = drawRect('v');
+    const secondID = drawRect('h');
 
     const firstPixels = getPixels(firstID);
     const secondPixels = getPixels(secondID);
@@ -28,9 +29,6 @@ btnDraw.addEventListener('click', e => {
 
     clearCanvas();
     animate(mappedPixels, animFrames);
-    //drawID(getIDFromMap(mappedPixes, canvas.width, canvas.height));
-    //drawMap(mappedPixes);
-    //drawID(firstID);
 });
 
 function animate(mappedPixels, animFrames) {
@@ -42,7 +40,8 @@ function animate(mappedPixels, animFrames) {
         drawID(getIDFromMap(interpolatedMap, canvas.width, canvas.height));
         count++;
         if (count <= animFrames) {
-            requestAnimationFrame(loop);
+            //requestAnimationFrame(loop);
+            setTimeout(loop, 1000);
         }
     })()
 }
