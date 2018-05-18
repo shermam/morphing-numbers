@@ -15,15 +15,19 @@ const btnDraw = document.querySelector('#draw');
 let num = 0;
 
 
-btnDraw.addEventListener('click', e => {
+btnDraw.addEventListener('click', start);
+
+setInterval(start, 500);
+
+function start() {
     const firstID = drawText(num);
     const secondID = drawText(++num);
 
     // const firstID = drawRect('v');
     // const secondID = drawRect('h');
 
-    // const firstID = drawPixel(15, 5);
-    // const secondID = drawPixel(5, 15);
+    // const firstID = drawPixel(15, 15);
+    // const secondID = drawPixel(5, 5);
 
     const firstPixels = getPixels(firstID);
     const secondPixels = getPixels(secondID);
@@ -34,7 +38,7 @@ btnDraw.addEventListener('click', e => {
 
     //clearCanvas();
     animate(mappedPixels, animFrames);
-});
+}
 
 function animate(mappedPixels, animFrames) {
     let count = 0;
@@ -46,7 +50,7 @@ function animate(mappedPixels, animFrames) {
         count++;
         if (count <= animFrames) {
             //requestAnimationFrame(loop);
-            setTimeout(loop, 20);
+            setTimeout(loop, 16);
         }
     })()
 }
@@ -78,7 +82,19 @@ function getInterpolatedMap(mappedPixels, count, animFrames) {
         const distance = ratio * p.distance;
         const dx = Math.sqrt((distance ** 2) / (1 + (p.r ** 2)));
         const dy = dx * p.r;
-        const ret = { x: Math.round(p.x + dx), y: Math.round(p.y + dy) };
+
+        let newX = p.x + dx;
+        let newY = p.y + dy;
+
+        if (p.toX - p.x < 0) {
+            newX = p.x - dx;
+        }
+
+        if (p.toY - p.y < 0) {
+            newY = p.y - dy;
+        }
+
+        const ret = { x: Math.round(newX), y: Math.round(newY) };
 
         return ret;
     });
