@@ -1,12 +1,13 @@
 //@ts-check
-import { drawTextFactory, drawRectFactory } from "./drawText.js";
+import { drawTextFactory, drawRectFactory, drawPixelFactory } from "./drawText.js";
 import { diffID, sameID, getPixels, mapPixels, getIDFromMap } from "./utils.js";
 
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
-canvas.width = canvas.height = 20;
+canvas.width = canvas.height = 200;
 const drawText = drawTextFactory(canvas.width, canvas.height);
 const drawRect = drawRectFactory(canvas.width, canvas.height);
+const drawPixel = drawPixelFactory(canvas.width, canvas.height);
 const animFrames = 10;
 
 
@@ -15,10 +16,14 @@ let num = 0;
 
 
 btnDraw.addEventListener('click', e => {
-    // const firstID = drawText(num);
-    // const secondID = drawText(++num);
-    const firstID = drawRect('v');
-    const secondID = drawRect('h');
+    const firstID = drawText(num);
+    const secondID = drawText(++num);
+
+    // const firstID = drawRect('v');
+    // const secondID = drawRect('h');
+
+    // const firstID = drawPixel(15, 5);
+    // const secondID = drawPixel(5, 15);
 
     const firstPixels = getPixels(firstID);
     const secondPixels = getPixels(secondID);
@@ -27,7 +32,7 @@ btnDraw.addEventListener('click', e => {
         mapPixels(secondPixels, firstPixels, true)
     );
 
-    clearCanvas();
+    //clearCanvas();
     animate(mappedPixels, animFrames);
 });
 
@@ -41,7 +46,7 @@ function animate(mappedPixels, animFrames) {
         count++;
         if (count <= animFrames) {
             //requestAnimationFrame(loop);
-            setTimeout(loop, 1000);
+            setTimeout(loop, 20);
         }
     })()
 }
@@ -62,11 +67,11 @@ function getInterpolatedMap(mappedPixels, count, animFrames) {
         }
 
         if (p.x === p.toX) {
-            return { x: p.x, y: p.y + ((p.toY - p.y) * ratio) };
+            return { x: p.x, y: Math.round(p.y + ((p.toY - p.y) * ratio)) };
         }
 
         if (p.y === p.toY) {
-            return { x: p.x + ((p.toX - p.x) * ratio), y: p.y };
+            return { x: Math.round(p.x + ((p.toX - p.x) * ratio)), y: p.y };
         }
 
 

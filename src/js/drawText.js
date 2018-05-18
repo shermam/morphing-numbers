@@ -55,6 +55,28 @@ export function drawRectFactory(width, height) {
     };
 }
 
+export function drawPixelFactory(width, height) {
+    return (xP, yP) => {
+        const id = new ImageData(width, height);
+        for (let x = 0; x < width; x++) {
+            for (let y = 0; y < height; y++) {
+                const index = (x + y * width) * 4;
+                if (xP === x && yP === y) {
+                    id.data[index + 0] =
+                        id.data[index + 1] =
+                        id.data[index + 2] = 0;
+                } else {
+                    id.data[index + 0] =
+                        id.data[index + 1] =
+                        id.data[index + 2] = 255;
+                }
+                id.data[index + 3] = 255;
+            }
+        }
+        return id;
+    };
+}
+
 function blackWhite(imageData) {
     for (let i = 0; i < imageData.data.length; i += 4) {
         const avg = (imageData.data[i + 0] +
