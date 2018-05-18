@@ -4,7 +4,7 @@ import { diffID, sameID, getPixels, mapPixels, getIDFromMap } from "./utils.js";
 
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
-canvas.width = canvas.height = 400;
+canvas.width = canvas.height = 200;
 const drawText = drawTextFactory(canvas.width, canvas.height);
 const drawRect = drawRectFactory(canvas.width, canvas.height);
 const drawPixel = drawPixelFactory(canvas.width, canvas.height);
@@ -17,7 +17,7 @@ let num = 0;
 
 btnDraw.addEventListener('click', start);
 
-setInterval(start, 500);
+setInterval(start, 2000);
 
 function start() {
     const firstID = drawText(num);
@@ -50,7 +50,7 @@ function animate(mappedPixels, animFrames) {
         count++;
         if (count <= animFrames) {
             //requestAnimationFrame(loop);
-            setTimeout(loop, 16);
+            setTimeout(loop, 100);
         }
     })()
 }
