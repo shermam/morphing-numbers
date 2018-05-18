@@ -3,6 +3,8 @@
 
 The idea is to have the drawing of a digit in the canvas morph into the the drawing of another number with an animation.
 
+(Here is where I got so far: https://shermam.github.io/morphing-numbers/src/)
+
 To do that I am thinking in four diferent tecniques:
 
 1. Take the pixels that are different in the two images. For each of them find the closest pixel on the second image of the same color. Move the different pixel to the place of the closest pixel place with an animation.
