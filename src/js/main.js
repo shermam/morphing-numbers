@@ -17,7 +17,7 @@ let num = 0;
 
 btnDraw.addEventListener('click', start);
 
-setInterval(start, 2000);
+setInterval(start, 1000);
 
 function start() {
     const firstID = drawText(num);
@@ -41,18 +41,28 @@ function start() {
 }
 
 function animate(mappedPixels, animFrames) {
+
+    const frames = makeFrames(mappedPixels, animFrames);
     let count = 0;
 
     (function loop() {
-        const interpolatedMap = getInterpolatedMap(mappedPixels, count, animFrames);
 
-        drawID(getIDFromMap(interpolatedMap, canvas.width, canvas.height));
+        drawID(frames[count]);
         count++;
         if (count <= animFrames) {
-            //requestAnimationFrame(loop);
-            setTimeout(loop, 100);
+            requestAnimationFrame(loop);
         }
     })()
+}
+
+function makeFrames(mappedPixels, animFrames) {
+    const frames = [];
+    for (let i = 0; i <= animFrames; i++) {
+        const interpolatedMap = getInterpolatedMap(mappedPixels, i, animFrames);
+        const imageData = getIDFromMap(interpolatedMap, canvas.width, canvas.height);
+        frames.push(imageData);
+    }
+    return frames;
 }
 
 function getInterpolatedMap(mappedPixels, count, animFrames) {
