@@ -17,7 +17,11 @@ let num = 0;
 
 btnDraw.addEventListener('click', start);
 
-setInterval(start, 3000);
+//setInterval(start, 3000);
+(function loop() {
+    start();
+    setTimeout(loop, 3000);
+})()
 
 function start() {
     const firstID = drawText(num);
