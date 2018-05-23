@@ -8,11 +8,11 @@ canvas.width = canvas.height = 400;
 const drawText = drawTextFactory(canvas.width, canvas.height);
 const drawRect = drawRectFactory(canvas.width, canvas.height);
 const drawPixel = drawPixelFactory(canvas.width, canvas.height);
-const animFrames = 120;
+const animFrames = 30;
 
 
 const btnDraw = document.querySelector('#draw');
-let num = 0;
+let num = 120;
 
 
 btnDraw.addEventListener('click', start);
@@ -20,7 +20,7 @@ btnDraw.addEventListener('click', start);
 //setInterval(start, 3000);
 (function loop() {
     start();
-    setTimeout(loop, 3000);
+    setTimeout(loop, 1000);
 })()
 
 function start() {
@@ -76,7 +76,8 @@ function getInterpolatedMap(mappedPixels, count, animFrames) {
         return mappedPixels.map(p => ({ x: p.toX, y: p.toY }));
     }
 
-    const ratio = (count / animFrames);
+    const ratio = (count / animFrames) + ((1 - (count / animFrames)) * 0.2);
+    //const ratio = (count / animFrames);
 
     return mappedPixels.map(p => {
 

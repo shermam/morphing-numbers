@@ -17,7 +17,7 @@ export function drawTextFactory(width, height) {
         bContext.strokeStyle = '#000000';
         bContext.textAlign = "center";
         bContext.strokeText(
-            num,
+            String.fromCharCode(num) || 0,
             buffer.width / 2,
             buffer.height / 2
         );
