@@ -4,7 +4,7 @@ import { diffID, sameID, getPixels, mapPixels, getIDFromMap } from "./utils.js";
 
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
-canvas.width = canvas.height = 500;
+canvas.width = canvas.height = 400;
 const drawText = drawTextFactory(canvas.width, canvas.height);
 const drawRect = drawRectFactory(canvas.width, canvas.height);
 const drawPixel = drawPixelFactory(canvas.width, canvas.height);
