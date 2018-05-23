@@ -4,11 +4,11 @@ import { diffID, sameID, getPixels, mapPixels, getIDFromMap } from "./utils.js";
 
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
-canvas.width = canvas.height = 200;
+canvas.width = canvas.height = 1000;
 const drawText = drawTextFactory(canvas.width, canvas.height);
 const drawRect = drawRectFactory(canvas.width, canvas.height);
 const drawPixel = drawPixelFactory(canvas.width, canvas.height);
-const animFrames = 10;
+const animFrames = 120;
 
 
 const btnDraw = document.querySelector('#draw');
@@ -17,7 +17,7 @@ let num = 0;
 
 btnDraw.addEventListener('click', start);
 
-setInterval(start, 1000);
+setInterval(start, 3000);
 
 function start() {
     const firstID = drawText(num);
